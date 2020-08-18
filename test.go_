@@ -1,0 +1,32 @@
+package main
+
+
+import (
+	"code.clouderwork.com/clouderwork/sync/task"
+	"fmt"
+	"time"
+)
+
+func main() {
+	//<- time.After(time.Second * 10)
+	//ticker := time.NewTicker(time.Millisecond * 500)
+	//go func(){
+	//	for t:=range ticker.C{
+	//		fmt.Println(t)
+	//		fmt.Println("Hello")
+	//	}
+	//}()
+	//
+	//time.Sleep(time.Second * 18)
+	//ticker.Stop()
+
+	cron := sync.NewCron()
+	cron.Schedule(
+		task.Schedule{Interval: 10 * time.Second},
+		task.Command{Name: "foo",Func: func() error {
+			fmt.Println("finish command foo")
+			return nil
+		}},
+	)
+	time.Sleep(time.Second*108)
+}
